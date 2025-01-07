@@ -231,87 +231,28 @@ function App() {
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <motion.div
-              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} cursor-pointer transform transition-transform duration-200 hover:scale-105`}
               variants={itemVariants}
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden"
             >
-              <Dialog>
-                <DialogTrigger asChild>
-                  <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
-                    <div className="h-48 flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 rounded-lg">
-                      <Lock className="w-16 h-16 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold mb-2 mt-4">SecureDocs</h3>
-                    <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                      A blockchain-powered document verification system for secure and tamper-proof document management.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {["Blockchain", "React", "TypeScript"].map((tag, i) => (
-                        <span
-                          key={i}
-                          className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl">
-                  <DialogHeader>
-                    <DialogTitle>SecureDocs</DialogTitle>
-                  </DialogHeader>
-                  <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
-                    <div className="space-y-6">
-                      <p className="text-lg">
-                        A blockchain-powered document verification system that ensures tamper-proof integrity and transparency for digital documents.
-                      </p>
-                      
-                      <div>
-                        <h3 className="text-lg font-semibold mb-2">Key Features</h3>
-                        <ul className="list-disc list-inside space-y-2">
-                          <li>Document hashing and blockchain storage for tamper-proof verification</li>
-                          <li>Secure OAuth authentication and access control</li>
-                          <li>Transparent audit trail of all document activities</li>
-                          <li>Decentralized storage using IPFS</li>
-                          <li>API integration for business workflows</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h3 className="text-lg font-semibold mb-2">Technologies Used</h3>
-                        <div className="flex flex-wrap gap-2">
-                          <Badge variant="outline">React</Badge>
-                          <Badge variant="outline">TypeScript</Badge>
-                          <Badge variant="outline">Blockchain</Badge>
-                          <Badge variant="outline">Ethereum</Badge>
-                          <Badge variant="outline">IPFS</Badge>
-                          <Badge variant="outline">Web3.js</Badge>
-                          <Badge variant="outline">Smart Contracts</Badge>
-                        </div>
-                      </div>
-
-                      <div className="flex gap-4">
-                        <a
-                          href="https://github.com/yourusername/secure-docs"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
-                        >
-                          View Source
-                        </a>
-                        <a
-                          href="https://secure-docs-demo.vercel.app"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-                        >
-                          Live Demo
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </DialogContent>
-              </Dialog>
+              <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
+                <div className="h-48 flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 rounded-lg">
+                  <Lock className="w-16 h-16 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2 mt-4">SecureDocs</h3>
+                <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  A blockchain-powered document verification system for secure and tamper-proof document management.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {["Blockchain", "React", "TypeScript"].map((tag, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </motion.div>
 
             <motion.div
