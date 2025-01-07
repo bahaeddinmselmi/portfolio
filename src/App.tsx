@@ -6,7 +6,7 @@ import myPhoto from './img/myphoto.jpg';
 import crimsonShop from './img/crimsonshop.jpg';
 import ChatBot from './components/ChatBot';
 import SecurityScanner from './components/SecurityScanner';
-import AiImageGenerator from './components/AiImageGenerator';
+import SecureDocs from './components/SecureDocs';
 import CrimsonShop from './components/CrimsonShop';
 import IpTracker from './components/IpTracker';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './components/ui/dialog';
@@ -260,7 +260,7 @@ function App() {
                     <DialogTitle>AI Image Generator</DialogTitle>
                   </DialogHeader>
                   <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
-                    <AiImageGenerator />
+                    <SecureDocs />
                   </div>
                 </DialogContent>
               </Dialog>
