@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { Github, Facebook, Mail, Brain, Code2, Shield, Languages, Moon, Sun } from 'lucide-react';
+import { Github, Facebook, Mail, Brain, Code2, Shield, Languages, Moon, Sun, X, Globe2 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import myPhoto from './img/myphoto.jpg';
 import crimsonShop from './img/crimsonshop.jpg';
 import ChatBot from './components/ChatBot';
 import SecurityScanner from './components/SecurityScanner';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './components/ui/dialog';
+import AiImageGenerator from './components/AiImageGenerator';
+import CrimsonShop from './components/CrimsonShop';
+import IpTracker from './components/IpTracker';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from './components/ui/dialog';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -219,41 +222,20 @@ function App() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <motion.h2 className="text-4xl font-bold mb-8 text-center" variants={itemVariants}>
+          <motion.h2
+            className="text-3xl font-bold mb-8"
+            variants={itemVariants}
+          >
             Projects
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <motion.div
-              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
-              variants={itemVariants}
-            >
-              <img src={crimsonShop} alt="CrimsonShop Project" className="w-full h-48 object-cover" />
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-2">CrimsonShop</h3>
-                <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                  An e-commerce platform built with React and Node.js, featuring user authentication, product management, and secure payment processing.
-                </p>
-                <div className="flex space-x-4">
-                  <a
-                    href="https://github.com/nanashi0x1/CrimsonShop"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex items-center ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-500'}`}
-                  >
-                    <Github className="w-5 h-5 mr-2" />
-                    View Code
-                  </a>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} cursor-pointer`}
+              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} cursor-pointer transform transition-transform duration-200 hover:scale-105`}
               variants={itemVariants}
             >
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="p-6 w-full text-left hover:opacity-90 transition-opacity">
+                  <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
                     <div className="h-48 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg">
                       <Shield className="w-16 h-16 text-white" />
                     </div>
@@ -273,13 +255,157 @@ function App() {
                     </div>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-800">
-                  <DialogHeader>
+                <DialogContent className="w-[90vw] max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl">
+                  <DialogHeader className="mb-4">
                     <DialogTitle className="text-2xl font-bold">Web Security Scanner</DialogTitle>
                   </DialogHeader>
                   <div className="mt-4">
                     <SecurityScanner />
                   </div>
+                  <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                    <X className="h-4 w-4" />
+                    <span className="sr-only">Close</span>
+                  </DialogClose>
+                </DialogContent>
+              </Dialog>
+            </motion.div>
+
+            <motion.div
+              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} cursor-pointer transform transition-transform duration-200 hover:scale-105`}
+              variants={itemVariants}
+              onClick={() => {
+                const dialog = document.querySelector('[data-dialog="ai-generator"]');
+                if (dialog) {
+                  (dialog as any).showModal();
+                }
+              }}
+            >
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
+                    <div className="h-48 flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg">
+                      <Brain className="w-16 h-16 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2 mt-4">AI Image Generator</h3>
+                    <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                      An advanced AI-powered image generation tool that creates unique and creative images from text descriptions.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["AI", "React", "TypeScript"].map((tag, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </DialogTrigger>
+                <DialogContent data-dialog="ai-generator" className="w-[90vw] max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl">
+                  <DialogHeader className="mb-4">
+                    <DialogTitle className="text-2xl font-bold">AI Image Generator</DialogTitle>
+                  </DialogHeader>
+                  <div className="mt-4">
+                    <AiImageGenerator />
+                  </div>
+                  <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                    <X className="h-4 w-4" />
+                    <span className="sr-only">Close</span>
+                  </DialogClose>
+                </DialogContent>
+              </Dialog>
+            </motion.div>
+
+            <motion.div
+              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} cursor-pointer transform transition-transform duration-200 hover:scale-105`}
+              variants={itemVariants}
+              onClick={() => {
+                const dialog = document.querySelector('[data-dialog="crimson-shop"]');
+                if (dialog) {
+                  (dialog as any).showModal();
+                }
+              }}
+            >
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
+                    <div className="h-48 overflow-hidden rounded-lg">
+                      <img
+                        src={crimsonShop}
+                        alt="Crimson Shop"
+                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-200"
+                      />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2 mt-4">Crimson Shop</h3>
+                    <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                      A modern e-commerce platform for gaming enthusiasts, featuring a sleek design and seamless shopping experience.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["E-commerce", "React", "Node.js"].map((tag, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </DialogTrigger>
+                <DialogContent data-dialog="crimson-shop" className="w-[90vw] max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl">
+                  <DialogHeader className="mb-4">
+                    <DialogTitle className="text-2xl font-bold">Crimson Shop</DialogTitle>
+                  </DialogHeader>
+                  <div className="mt-4">
+                    <CrimsonShop />
+                  </div>
+                  <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                    <X className="h-4 w-4" />
+                    <span className="sr-only">Close</span>
+                  </DialogClose>
+                </DialogContent>
+              </Dialog>
+            </motion.div>
+
+            {/* IP Tracker Project Card */}
+            <motion.div
+              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} cursor-pointer transform transition-transform duration-200 hover:scale-105`}
+              variants={itemVariants}
+            >
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
+                    <div className="h-48 flex items-center justify-center bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg">
+                      <Globe2 className="w-16 h-16 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2 mt-4">IP Tracker</h3>
+                    <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                      A powerful IP tracking tool that provides detailed information about IP addresses, including location, ISP, and timezone data.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["React", "TypeScript", "Geolocation"].map((tag, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="w-[90vw] max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl">
+                  <DialogHeader className="mb-4">
+                    <DialogTitle className="text-2xl font-bold">IP Tracker</DialogTitle>
+                  </DialogHeader>
+                  <div className="mt-4">
+                    <IpTracker />
+                  </div>
+                  <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                    <X className="h-4 w-4" />
+                    <span className="sr-only">Close</span>
+                  </DialogClose>
                 </DialogContent>
               </Dialog>
             </motion.div>

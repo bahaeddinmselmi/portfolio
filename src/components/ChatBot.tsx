@@ -1,23 +1,209 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send } from 'lucide-react';
+import { Bot, Send, User, X, MessageSquare, ArrowLeftRight } from 'lucide-react';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { ScrollArea } from './ui/scroll-area';
 
 interface Message {
-  text: string;
-  sender: 'user' | 'bot';
+  type: 'user' | 'bot';
+  content: string;
 }
 
-interface ChatBotProps {
-  darkMode: boolean;
-}
+const personalInfo = {
+  name: "Baha Eddin Mselmi",
+  email: "bahaeddine.mselmi@gmail.com",
+  phone: "+216 56 708 649",
+  location: "Tunisia",
+  education: {
+    university: "ISTIC University",
+    highSchool: "Lycée Pilote Ariana",
+    status: "Final Year Student"
+  },
+  personality: "ENTP",
+  certifications: [
+    "CompTIA Security+",
+    "Cisco CCNA",
+    "AWS Cloud Practitioner",
+    "React Developer Certification"
+  ],
+  languages: [
+    { name: "Arabic", level: "Native" },
+    { name: "English", level: "Professional" },
+    { name: "French", level: "Professional" }
+  ],
+  projects: [
+    {
+      name: "Web Security Scanner",
+      tech: ["Python", "Django", "React", "TypeScript"]
+    },
+    {
+      name: "AI Image Generator",
+      tech: ["React", "TypeScript", "OpenAI API"]
+    },
+    {
+      name: "Crimson Shop",
+      tech: ["React", "Node.js", "MongoDB", "Express"]
+    }
+  ],
+  interests: [
+    {
+      area: "Cybersecurity",
+      details: "Passionate about web security and penetration testing"
+    },
+    {
+      area: "AI Development",
+      details: "Building AI-powered applications and tools"
+    },
+    {
+      area: "Full-stack Development",
+      details: "Creating modern web applications with React and Node.js"
+    }
+  ]
+};
 
-const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
+const generateResponse = (input: string): string => {
+  const lowercaseInput = input.toLowerCase().trim();
+  
+  // Handle empty or very short inputs
+  if (lowercaseInput.length < 2) {
+    return "I didn't catch that. Could you please say more?";
+  }
+
+  // Greetings
+  if (lowercaseInput.match(/^(hi|hey|hello|yo|sup|hii|hiii|hola|greetings|good|morning|afternoon|evening)$/)) {
+    return `Hi! I'm ${personalInfo.name}'s AI assistant. Here's what I can tell you about:
+
+1. Background & Education 📚
+2. Technical Skills & Certifications 💻
+3. Projects & Experience 🚀
+4. Languages & Communication 🌐
+5. Interests & Specializations 🎯
+6. Contact Information 📧
+
+What would you like to know about?`;
+  }
+
+  // All Information
+  if (lowercaseInput.includes('all') || lowercaseInput.includes('everything') || lowercaseInput.match(/tell.*me/)) {
+    return `Here's everything about ${personalInfo.name}:
+
+📚 Background & Education
+• Currently studying at ${personalInfo.education.university}
+• Previously at ${personalInfo.education.highSchool}
+• Status: ${personalInfo.education.status}
+• Personality: ${personalInfo.personality}
+
+💻 Technical Skills & Certifications
+${personalInfo.certifications.map(cert => `• ${cert}`).join('\n')}
+
+🚀 Key Projects
+${personalInfo.projects.map(project => `• ${project.name}
+  Technologies: ${project.tech.join(', ')}`).join('\n')}
+
+🌐 Languages
+${personalInfo.languages.map(lang => `• ${lang.name}: ${lang.level}`).join('\n')}
+
+🎯 Main Interests
+${personalInfo.interests.map(interest => `• ${interest.area}: ${interest.details}`).join('\n')}
+
+📧 Contact
+• Email: ${personalInfo.email}
+• Phone: ${personalInfo.phone}
+• Location: ${personalInfo.location}
+
+Would you like to know more about any specific area?`;
+  }
+
+  // Personal Info
+  if (lowercaseInput.includes('who') || lowercaseInput.includes('about')) {
+    return `${personalInfo.name} is a ${personalInfo.education.status} at ${personalInfo.education.university}, specializing in Cybersecurity and AI Development. With a passion for technology and innovation, he's built several notable projects including a Web Security Scanner and an AI Image Generator.`;
+  }
+
+  // Contact
+  if (lowercaseInput.includes('contact') || lowercaseInput.includes('email') || lowercaseInput.includes('phone') || lowercaseInput.includes('reach')) {
+    return `📧 Contact Information:
+• Email: ${personalInfo.email}
+• Phone: ${personalInfo.phone}
+• Location: ${personalInfo.location}
+
+Feel free to reach out for collaboration or inquiries!`;
+  }
+
+  // Education
+  if (lowercaseInput.includes('education') || lowercaseInput.includes('study') || lowercaseInput.includes('university') || lowercaseInput.includes('school')) {
+    return `📚 Educational Background:
+• Currently at ${personalInfo.education.university}
+• Previously at ${personalInfo.education.highSchool}
+• Status: ${personalInfo.education.status}
+• Focus: Cybersecurity & AI Development`;
+  }
+
+  // Skills & Certifications
+  if (lowercaseInput.includes('skill') || lowercaseInput.includes('certification') || lowercaseInput.includes('tech') || lowercaseInput.includes('stack')) {
+    return `💻 Technical Skills & Certifications:
+
+Certifications:
+${personalInfo.certifications.map(cert => `• ${cert}`).join('\n')}
+
+Core Technologies:
+• Frontend: React, TypeScript, Next.js
+• Backend: Node.js, Python, Django
+• Database: MongoDB, PostgreSQL
+• Cloud: AWS, Docker
+• Security: Penetration Testing, Web Security`;
+  }
+
+  // Languages
+  if (lowercaseInput.includes('language') || lowercaseInput.includes('speak')) {
+    return `🌐 Language Proficiency:
+${personalInfo.languages.map(lang => `• ${lang.name}: ${lang.level}`).join('\n')}
+
+This multilingual capability enables effective communication across diverse teams and international projects.`;
+  }
+
+  // Projects
+  if (lowercaseInput.includes('project') || lowercaseInput.includes('work') || lowercaseInput.includes('portfolio')) {
+    return `🚀 Notable Projects:
+
+${personalInfo.projects.map(project => `${project.name}
+• Technologies: ${project.tech.join(', ')}
+• Type: Professional Project
+• Status: Completed & Deployed\n`).join('\n')}
+
+Each project showcases practical implementation of various technologies and problem-solving skills.`;
+  }
+
+  // Interests
+  if (lowercaseInput.includes('interest') || lowercaseInput.includes('hobby') || lowercaseInput.includes('passion')) {
+    return `🎯 Areas of Interest:
+
+${personalInfo.interests.map(interest => `${interest.area}
+• ${interest.details}`).join('\n\n')}
+
+These interests drive continuous learning and innovation in projects.`;
+  }
+
+  // Default response
+  return `I can help you learn about ${personalInfo.name}. Here are some topics you can ask about:
+
+1. Background & Education 📚
+2. Technical Skills & Certifications 💻
+3. Projects & Experience 🚀
+4. Languages & Communication 🌐
+5. Interests & Specializations 🎯
+6. Contact Information 📧
+
+Just ask about any of these topics or type "tell me everything" to see all information!`;
+};
+
+const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { text: 'Hello! How can I help you today?', sender: 'bot' },
+    { type: 'bot', content: `Hi! I'm ${personalInfo.name}'s AI assistant. How can I help you today?` }
   ]);
-  const [inputMessage, setInputMessage] = useState('');
+  const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({ right: true, bottom: true });
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -27,152 +213,117 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = async () => {
-    if (!inputMessage.trim()) return;
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
 
-    // Add user message
-    setMessages(prev => [...prev, { text: inputMessage, sender: 'user' }]);
-    const userMessage = inputMessage;
-    setInputMessage('');
+    const userMessage = { type: 'user' as const, content: input };
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
 
-    // Simulate bot thinking
     setTimeout(() => {
-      const botResponse = getAIResponse(userMessage);
-      setMessages(prev => [...prev, { text: botResponse, sender: 'bot' }]);
-    }, 1000);
+      const botMessage = { type: 'bot' as const, content: generateResponse(input) };
+      setMessages(prev => [...prev, botMessage]);
+    }, 500);
   };
 
-  const getAIResponse = (message: string) => {
-    const responses: { [key: string]: string } = {
-      'hello': 'Hi! I\'m your portfolio assistant. I can tell you about the projects, skills, and experience showcased here. What would you like to know?',
-      'hi': 'Hello! I\'m your portfolio assistant. I can tell you about the projects, skills, and experience showcased here. What would you like to know?',
-      'noob': 'Not at all! I\'m actually a sophisticated AI assistant designed to help visitors learn more about this portfolio and its projects. What would you like to know?',
-      'who': 'This portfolio website belongs to Nanashi, a skilled developer with expertise in web development, particularly in React, TypeScript, and modern web technologies.',
-      'owner': 'This portfolio website belongs to Nanashi, a skilled developer with expertise in web development, particularly in React, TypeScript, and modern web technologies.',
-      'what can you do': 'I can help you with:\n1. Information about projects\n2. Technical skills and expertise\n3. Contact information\n4. Background and experience\nWhat would you like to know more about?',
-      'help': 'I can help you with:\n1. Information about projects\n2. Technical skills and expertise\n3. Contact information\n4. Background and experience\nWhat would you like to know more about?',
-      'projects': 'Some notable projects include the Crimson Shop e-commerce platform. Would you like to know more about any specific project?',
-      'skills': 'The key skills include:\n- Frontend: React, TypeScript, Tailwind CSS\n- Animation: Framer Motion\n- Version Control: Git\n- And more!\nWhich skill would you like to know more about?',
-      'contact': 'You can get in touch through:\n- Email\n- GitHub\n- Facebook\nWould you like any specific contact information?',
-      'bye': 'Thanks for chatting! If you have any more questions later, feel free to come back. Have a great day!',
-      'default': 'I\'d be happy to help! I can tell you about projects, skills, contact information, or general background. What interests you?'
-    };
-
-    message = message.toLowerCase();
-    for (let key in responses) {
-      if (message.includes(key)) {
-        return responses[key];
-      }
-    }
-    return responses.default;
+  const togglePosition = () => {
+    setPosition(prev => ({
+      right: !prev.right,
+      bottom: prev.bottom
+    }));
   };
 
   return (
-    <div className="fixed bottom-0 right-0 z-50">
+    <div className={`fixed ${position.bottom ? 'bottom-4' : 'top-4'} ${position.right ? 'right-4' : 'left-4'} z-[100]`}>
       {/* Chat Button */}
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.button
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}
-            className={`fixed bottom-6 right-6 p-4 rounded-full ${
-              darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-blue-500 hover:bg-blue-600'
-            } text-white shadow-lg hover:shadow-xl transition-all duration-300`}
-            onClick={() => setIsOpen(true)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <MessageSquare size={24} />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      {!isOpen && (
+        <Button
+          onClick={() => setIsOpen(true)}
+          className="rounded-full w-10 h-10 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg"
+        >
+          <MessageSquare className="h-5 w-5" />
+        </Button>
+      )}
 
       {/* Chat Window */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className={`fixed bottom-6 right-6 w-80 sm:w-96 ${
-              darkMode ? 'bg-gray-800' : 'bg-white'
-            } rounded-lg shadow-xl overflow-hidden border ${
-              darkMode ? 'border-gray-700' : 'border-gray-200'
-            }`}
-          >
-            {/* Header */}
-            <div className={`p-4 ${darkMode ? 'bg-gray-700' : 'bg-blue-500'} text-white flex justify-between items-center`}>
-              <h3 className="font-semibold">Chat Assistant</h3>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="hover:bg-opacity-20 hover:bg-black rounded p-1 transition-colors"
+      {isOpen && (
+        <div className="w-[280px] sm:w-[320px] h-[450px] bg-background border rounded-lg shadow-xl flex flex-col relative">
+          {/* Header */}
+          <div className="p-2 border-b flex justify-between items-center bg-primary text-primary-foreground rounded-t-lg">
+            <div className="flex items-center gap-2">
+              <Bot className="h-4 w-4" />
+              <span className="font-semibold text-xs">AI Assistant</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 hover:bg-primary-foreground/10"
+                onClick={togglePosition}
               >
-                <X size={20} />
-              </button>
+                <ArrowLeftRight className="h-3 w-3" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 hover:bg-primary-foreground/10"
+                onClick={() => setIsOpen(false)}
+              >
+                <X className="h-3 w-3" />
+              </Button>
             </div>
+          </div>
 
-            {/* Messages */}
-            <div 
-              className={`h-96 overflow-y-auto p-4 ${
-                darkMode ? 'bg-gray-800 text-white' : 'bg-gray-50 text-gray-900'
-              }`}
-            >
-              {messages.map((message, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`mb-4 ${message.sender === 'user' ? 'text-right' : ''}`}
+          {/* Messages */}
+          <ScrollArea className="flex-1 p-2 space-y-2">
+            {messages.map((message, i) => (
+              <div
+                key={i}
+                className={`flex items-start gap-2 ${
+                  message.type === 'user' ? 'flex-row-reverse' : ''
+                }`}
+              >
+                <div
+                  className={`p-2 rounded-lg max-w-[85%] ${
+                    message.type === 'user'
+                      ? 'bg-primary text-primary-foreground ml-auto'
+                      : 'bg-muted'
+                  }`}
                 >
-                  <div
-                    className={`inline-block max-w-[80%] rounded-lg px-4 py-2 ${
-                      message.sender === 'user'
-                        ? darkMode
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-blue-500 text-white'
-                        : darkMode
-                        ? 'bg-gray-700 text-white'
-                        : 'bg-white text-gray-800'
-                    } shadow-sm`}
-                  >
-                    <p className="whitespace-pre-line">{message.text}</p>
+                  <div className="flex items-center gap-1 mb-1">
+                    {message.type === 'user' ? (
+                      <User className="h-3 w-3" />
+                    ) : (
+                      <Bot className="h-3 w-3" />
+                    )}
+                    <span className="text-[10px] font-medium">
+                      {message.type === 'user' ? 'You' : 'Assistant'}
+                    </span>
                   </div>
-                </motion.div>
-              ))}
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Input */}
-            <div className={`p-4 ${darkMode ? 'bg-gray-700' : 'bg-white'} border-t ${darkMode ? 'border-gray-600' : 'border-gray-200'}`}>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={inputMessage}
-                  onChange={(e) => setInputMessage(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  placeholder="Type your message..."
-                  className={`flex-1 p-2 rounded-lg ${
-                    darkMode
-                      ? 'bg-gray-800 text-white border-gray-600'
-                      : 'bg-gray-100 text-gray-800 border-gray-200'
-                  } border focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                />
-                <motion.button
-                  onClick={handleSendMessage}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`p-2 rounded-lg ${
-                    darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'
-                  } text-white transition-colors duration-300`}
-                >
-                  <Send size={20} />
-                </motion.button>
+                  <p className="whitespace-pre-line text-[11px] leading-relaxed">{message.content}</p>
+                </div>
               </div>
+            ))}
+            <div ref={messagesEndRef} />
+          </ScrollArea>
+
+          {/* Input */}
+          <form onSubmit={handleSubmit} className="p-2 border-t bg-muted/50">
+            <div className="flex gap-1">
+              <Input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Type your message..."
+                className="flex-1 text-xs h-7 min-h-0"
+              />
+              <Button type="submit" size="icon" className="h-7 w-7" disabled={!input.trim()}>
+                <Send className="h-3 w-3" />
+              </Button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
