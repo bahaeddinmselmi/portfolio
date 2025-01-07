@@ -4,6 +4,7 @@ import { Github, Facebook, Mail, Brain, Code2, Shield, Languages, Moon, Sun } fr
 import emailjs from '@emailjs/browser';
 import myPhoto from './img/myphoto.jpg';
 import crimsonShop from './img/crimsonshop.jpg';
+import ChatBot from './components/ChatBot';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -408,6 +409,7 @@ function App() {
           </motion.div>
         </section>
       </main>
+      <ChatBot darkMode={darkMode} />
     </div>
   );
 }
