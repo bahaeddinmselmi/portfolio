@@ -248,13 +248,13 @@ function App() {
             </motion.div>
 
             <motion.div
-              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
+              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} cursor-pointer`}
               variants={itemVariants}
             >
               <Dialog>
-                <DialogTrigger className="w-full text-left">
-                  <div className="p-6">
-                    <div className="h-48 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500">
+                <DialogTrigger asChild>
+                  <div className="p-6 w-full text-left hover:opacity-90 transition-opacity">
+                    <div className="h-48 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg">
                       <Shield className="w-16 h-16 text-white" />
                     </div>
                     <h3 className="text-2xl font-bold mb-2 mt-4">Web Security Scanner</h3>
@@ -273,11 +273,13 @@ function App() {
                     </div>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-800">
                   <DialogHeader>
-                    <DialogTitle>Web Security Scanner</DialogTitle>
+                    <DialogTitle className="text-2xl font-bold">Web Security Scanner</DialogTitle>
                   </DialogHeader>
-                  <SecurityScanner />
+                  <div className="mt-4">
+                    <SecurityScanner />
+                  </div>
                 </DialogContent>
               </Dialog>
             </motion.div>
