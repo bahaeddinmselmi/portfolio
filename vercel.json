@@ -8,5 +8,9 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "github": {
+    "silent": true,
+    "autoAlias": true
+  },
   "installCommand": "npm install"
 }
