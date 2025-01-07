@@ -33,7 +33,7 @@ const AiImageGenerator = () => {
     setProgress(0);
 
     try {
-      // Simulate progress for demo purposes
+      // Progress animation
       const progressInterval = setInterval(() => {
         setProgress(prev => {
           if (prev >= 90) {
@@ -44,19 +44,57 @@ const AiImageGenerator = () => {
         });
       }, 300);
 
-      // For demo purposes, using a placeholder image
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      const demoImage = 'https://source.unsplash.com/random/1024x1024?' + encodeURIComponent(prompt);
-      
-      setGeneratedImages(prev => [demoImage, ...prev]);
+      // Call Hugging Face API
+      const response = await fetch(
+        "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_HUGGINGFACE_API_KEY || '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'}`,
+          },
+          body: JSON.stringify({
+            inputs: prompt + (negativePrompt ? ` {negative prompt: ${negativePrompt}}` : ''),
+            parameters: {
+              num_inference_steps: quality,
+              guidance_scale: 7.5,
+              width: aspectRatio === '16:9' ? 832 : aspectRatio === '9:16' ? 512 : 640,
+              height: aspectRatio === '16:9' ? 512 : aspectRatio === '9:16' ? 832 : 640
+            }
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to generate image');
+      }
+
+      const blob = await response.blob();
+      const imageUrl = URL.createObjectURL(blob);
+      setGeneratedImages(prev => [imageUrl, ...prev]);
+
       clearInterval(progressInterval);
       setProgress(100);
     } catch (error) {
       console.error('Error generating image:', error);
-      // Handle error appropriately
+      alert('Failed to generate image. Please try again.');
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const handleDownload = (imageUrl: string) => {
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = `generated-image-${Date.now()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleVariations = async (imageUrl: string) => {
+    setPrompt('Generate variations of this image');
+    await handleGenerate();
   };
 
   return (
@@ -87,11 +125,11 @@ const AiImageGenerator = () => {
             <div key={index} className="relative aspect-square rounded-lg overflow-hidden group">
               <img src={image} alt={`Generated ${index + 1}`} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                <Button size="sm" variant="secondary" className="text-xs">
+                <Button size="sm" variant="secondary" className="text-xs" onClick={() => handleDownload(image)}>
                   <Download className="h-3 w-3 mr-1" />
                   Download
                 </Button>
-                <Button size="sm" variant="secondary" className="text-xs">
+                <Button size="sm" variant="secondary" className="text-xs" onClick={() => handleVariations(image)}>
                   <Wand2 className="h-3 w-3 mr-1" />
                   Variations
                 </Button>

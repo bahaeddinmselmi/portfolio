@@ -255,11 +255,11 @@ function App() {
                     </div>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] bg-background">
+                <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] overflow-hidden">
                   <DialogHeader>
                     <DialogTitle>AI Image Generator</DialogTitle>
                   </DialogHeader>
-                  <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
+                  <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
                     <AiImageGenerator />
                   </div>
                 </DialogContent>
@@ -292,11 +292,11 @@ function App() {
                     </div>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] bg-background">
+                <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] overflow-hidden">
                   <DialogHeader>
                     <DialogTitle>Web Security Scanner</DialogTitle>
                   </DialogHeader>
-                  <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
+                  <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
                     <SecurityScanner />
                   </div>
                 </DialogContent>
@@ -329,11 +329,11 @@ function App() {
                     </div>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] bg-background">
+                <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] overflow-hidden">
                   <DialogHeader>
                     <DialogTitle>Crimson Shop</DialogTitle>
                   </DialogHeader>
-                  <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
+                  <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
                     <CrimsonShop />
                   </div>
                 </DialogContent>
@@ -366,11 +366,11 @@ function App() {
                     </div>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] bg-background">
+                <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] overflow-hidden">
                   <DialogHeader>
                     <DialogTitle>IP Tracker</DialogTitle>
                   </DialogHeader>
-                  <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
+                  <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
                     <IpTracker />
                   </div>
                 </DialogContent>
