@@ -33,47 +33,22 @@ const AiImageGenerator = () => {
     setProgress(0);
 
     try {
-      // Start progress animation
+      // Simulate progress for demo purposes
       const progressInterval = setInterval(() => {
         setProgress(prev => {
           if (prev >= 90) {
             clearInterval(progressInterval);
             return 90;
           }
-          return prev + 10;
+          return prev + 5;
         });
-      }, 500);
+      }, 300);
 
-      // Make API call to Stable Diffusion API
-      const response = await fetch('https://api.stability.ai/v1/generation/stable-diffusion-xl-1024-v1-0/text-to-image', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer YOUR_API_KEY', // Replace with your actual API key
-        },
-        body: JSON.stringify({
-          text_prompts: [{ text: prompt }],
-          cfg_scale: quality / 10,
-          height: aspectRatio === '9:16' ? 1024 : aspectRatio === '16:9' ? 576 : 1024,
-          width: aspectRatio === '9:16' ? 576 : aspectRatio === '16:9' ? 1024 : 1024,
-          steps: 50,
-          style_preset: artStyle,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to generate image');
-      }
-
-      const result = await response.json();
+      // For demo purposes, using a placeholder image
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      const demoImage = 'https://source.unsplash.com/random/1024x1024?' + encodeURIComponent(prompt);
       
-      // Add the generated image to the list
-      if (result.artifacts && result.artifacts[0]) {
-        const imageUrl = `data:image/png;base64,${result.artifacts[0].base64}`;
-        setGeneratedImages(prev => [imageUrl, ...prev]);
-      }
-
-      // Complete the progress
+      setGeneratedImages(prev => [demoImage, ...prev]);
       clearInterval(progressInterval);
       setProgress(100);
     } catch (error) {

@@ -9,7 +9,7 @@ import SecurityScanner from './components/SecurityScanner';
 import AiImageGenerator from './components/AiImageGenerator';
 import CrimsonShop from './components/CrimsonShop';
 import IpTracker from './components/IpTracker';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from './components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './components/ui/dialog';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -258,9 +258,6 @@ function App() {
                 <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] bg-background">
                   <DialogHeader>
                     <DialogTitle>AI Image Generator</DialogTitle>
-                    <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-                      <X className="h-4 w-4" />
-                    </DialogClose>
                   </DialogHeader>
                   <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
                     <AiImageGenerator />
@@ -298,9 +295,6 @@ function App() {
                 <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] bg-background">
                   <DialogHeader>
                     <DialogTitle>Web Security Scanner</DialogTitle>
-                    <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-                      <X className="h-4 w-4" />
-                    </DialogClose>
                   </DialogHeader>
                   <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
                     <SecurityScanner />
@@ -338,9 +332,6 @@ function App() {
                 <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] bg-background">
                   <DialogHeader>
                     <DialogTitle>Crimson Shop</DialogTitle>
-                    <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-                      <X className="h-4 w-4" />
-                    </DialogClose>
                   </DialogHeader>
                   <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
                     <CrimsonShop />
@@ -378,9 +369,6 @@ function App() {
                 <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] bg-background">
                   <DialogHeader>
                     <DialogTitle>IP Tracker</DialogTitle>
-                    <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-                      <X className="h-4 w-4" />
-                    </DialogClose>
                   </DialogHeader>
                   <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
                     <IpTracker />
