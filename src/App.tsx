@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { Github, Facebook, Mail, Brain, Code2, Shield, Languages, Moon, Sun, X, Globe2 } from 'lucide-react';
+import { Github, Facebook, Mail, Brain, Code2, Shield, Languages, Moon, Sun, X, Globe2, Lock } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import myPhoto from './img/myphoto.jpg';
 import crimsonShop from './img/crimsonshop.jpg';
@@ -236,8 +236,24 @@ function App() {
             >
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="cursor-pointer">
-                    <SecureDocs />
+                  <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
+                    <div className="h-48 flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 rounded-lg">
+                      <Lock className="w-16 h-16 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2 mt-4">SecureDocs</h3>
+                    <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                      A blockchain-powered document verification system for secure and tamper-proof document management.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Blockchain", "React", "TypeScript"].map((tag, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl">
