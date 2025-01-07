@@ -49,23 +49,24 @@ const AiImageGenerator = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Token ${import.meta.env.VITE_REPLICATE_API_KEY || 'r8_0vgE4RtjCwRqOoFHFyADJcOxFtQv5Y9t4Qh1N'}`,
+          'Authorization': `Token ${import.meta.env.VITE_REPLICATE_API_KEY}`,
         },
         body: JSON.stringify({
           version: "ac732df83cea7fff18b8472768c88ad041fa750ff7682a21affe81863cbe77e4",
           input: {
-            prompt: prompt + (negativePrompt ? ` {negative prompt: ${negativePrompt}}` : ''),
+            prompt: `${artStyle === 'photorealistic' ? 'photorealistic, highly detailed, 8k uhd, ' : ''}${prompt}${negativePrompt ? ` {negative prompt: ${negativePrompt}}` : ''}`,
             width: aspectRatio === '16:9' ? 832 : aspectRatio === '9:16' ? 512 : 640,
             height: aspectRatio === '16:9' ? 512 : aspectRatio === '9:16' ? 832 : 640,
             num_outputs: 1,
-            guidance_scale: 7.5,
-            num_inference_steps: quality
+            guidance_scale: enhanceDetails ? 9.0 : 7.5,
+            num_inference_steps: Math.floor(quality * 0.5) + 25
           }
         })
       });
 
       if (!response.ok) {
-        throw new Error('Failed to start image generation');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to start image generation');
       }
 
       const prediction = await response.json();
@@ -75,7 +76,7 @@ const AiImageGenerator = () => {
       while (!result) {
         const pollResponse = await fetch(prediction.urls.get, {
           headers: {
-            'Authorization': `Token ${import.meta.env.VITE_REPLICATE_API_KEY || 'r8_0vgE4RtjCwRqOoFHFyADJcOxFtQv5Y9t4Qh1N'}`,
+            'Authorization': `Token ${import.meta.env.VITE_REPLICATE_API_KEY}`,
           },
         });
         
@@ -104,7 +105,7 @@ const AiImageGenerator = () => {
       setProgress(100);
     } catch (error) {
       console.error('Error generating image:', error);
-      alert('Failed to generate image. Please try again.');
+      alert(error instanceof Error ? error.message : 'Failed to generate image. Please try again.');
     } finally {
       setIsGenerating(false);
       setProgress(0);

@@ -29,6 +29,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Create env file
+        run: |
+          echo "VITE_REPLICATE_API_KEY=${{ secrets.REPLICATE_API_KEY }}" > .env
+
       - name: Build
         run: npm run build
 
