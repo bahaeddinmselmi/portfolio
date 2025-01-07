@@ -260,7 +260,6 @@ function App() {
                     <DialogTitle>AI Image Generator</DialogTitle>
                     <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
                       <X className="h-4 w-4" />
-                      <span className="sr-only">Close</span>
                     </DialogClose>
                   </DialogHeader>
                   <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
@@ -301,7 +300,6 @@ function App() {
                     <DialogTitle>Web Security Scanner</DialogTitle>
                     <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
                       <X className="h-4 w-4" />
-                      <span className="sr-only">Close</span>
                     </DialogClose>
                   </DialogHeader>
                   <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
@@ -342,7 +340,6 @@ function App() {
                     <DialogTitle>Crimson Shop</DialogTitle>
                     <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
                       <X className="h-4 w-4" />
-                      <span className="sr-only">Close</span>
                     </DialogClose>
                   </DialogHeader>
                   <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
@@ -383,7 +380,6 @@ function App() {
                     <DialogTitle>IP Tracker</DialogTitle>
                     <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
                       <X className="h-4 w-4" />
-                      <span className="sr-only">Close</span>
                     </DialogClose>
                   </DialogHeader>
                   <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
