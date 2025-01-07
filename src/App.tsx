@@ -5,6 +5,7 @@ import emailjs from '@emailjs/browser';
 import myPhoto from './img/myphoto.jpg';
 import crimsonShop from './img/crimsonshop.jpg';
 import ChatBot from './components/ChatBot';
+import SecurityScanner from './components/SecurityScanner';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -209,130 +210,69 @@ function App() {
           </motion.div>
         </section>
 
-        <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="container mx-auto px-4"
-          >
-            <motion.h2 
+        <motion.section
+          id="projects"
+          className={`min-h-screen p-8 ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100'}`}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <motion.h2 className="text-4xl font-bold mb-8 text-center" variants={itemVariants}>
+            Projects
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <motion.div
+              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
               variants={itemVariants}
-              className="text-4xl font-bold text-center mb-12"
             >
-              Featured Projects
-            </motion.h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <motion.div
-                variants={itemVariants}
-                whileHover={{ scale: 1.03 }}
-                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.3 }}
-                  className="h-48 overflow-hidden"
-                >
-                  <img 
-                    src={crimsonShop} 
-                    alt="Crimson Shop" 
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">Crimson Shop</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    E-commerce platform focusing on high-quality and unique products
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {["E-commerce", "Marketing", "Business"].map((tag, i) => (
-                      <motion.span
-                        key={i}
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: i * 0.1 }}
-                        className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
-                      >
-                        {tag}
-                      </motion.span>
-                    ))}
-                  </div>
+              <img src={crimsonShop} alt="CrimsonShop Project" className="w-full h-48 object-cover" />
+              <div className="p-6">
+                <h3 className="text-2xl font-bold mb-2">CrimsonShop</h3>
+                <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  An e-commerce platform built with React and Node.js, featuring user authentication, product management, and secure payment processing.
+                </p>
+                <div className="flex space-x-4">
+                  <a
+                    href="https://github.com/nanashi0x1/CrimsonShop"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-500'}`}
+                  >
+                    <Github className="w-5 h-5 mr-2" />
+                    View Code
+                  </a>
                 </div>
-              </motion.div>
+              </div>
+            </motion.div>
 
-              <motion.div
-                variants={itemVariants}
-                whileHover={{ scale: 1.03 }}
-                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.3 }}
-                  className="h-48 overflow-hidden bg-gradient-to-r from-blue-500 to-purple-500"
-                >
-                  <div className="h-full flex items-center justify-center text-white">
-                    <Shield className="w-16 h-16" />
-                  </div>
-                </motion.div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">Web Security Scanner</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    Advanced security tool for detecting vulnerabilities in web applications
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {["Security", "Python", "Automation"].map((tag, i) => (
-                      <motion.span
-                        key={i}
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: i * 0.1 }}
-                        className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
-                      >
-                        {tag}
-                      </motion.span>
-                    ))}
-                  </div>
+            <motion.div
+              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
+              variants={itemVariants}
+            >
+              <div className="p-6">
+                <h3 className="text-2xl font-bold mb-2">Web Security Scanner</h3>
+                <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  A powerful web security tool that helps identify vulnerabilities, analyze server configurations, and discover potential security risks in web applications.
+                </p>
+                <div className="flex space-x-4">
+                  <a
+                    href="https://github.com/nanashi0x1/portfolio/blob/main/src/components/SecurityScanner.tsx"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-500'}`}
+                  >
+                    <Github className="w-5 h-5 mr-2" />
+                    View Code
+                  </a>
                 </div>
-              </motion.div>
-
-              <motion.div
-                variants={itemVariants}
-                whileHover={{ scale: 1.03 }}
-                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.3 }}
-                  className="h-48 overflow-hidden bg-gradient-to-r from-green-500 to-blue-500"
-                >
-                  <div className="h-full flex items-center justify-center text-white">
-                    <Brain className="w-16 h-16" />
-                  </div>
-                </motion.div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">AI Image Analyzer</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    Deep learning-based image analysis tool for content moderation
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {["AI", "PyTorch", "Computer Vision"].map((tag, i) => (
-                      <motion.span
-                        key={i}
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: i * 0.1 }}
-                        className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
-                      >
-                        {tag}
-                      </motion.span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </section>
+              </div>
+              <div className="px-6 pb-6">
+                <SecurityScanner />
+              </div>
+            </motion.div>
+          </div>
+        </motion.section>
 
         <section id="contact" className="py-20 bg-white dark:bg-gray-800">
           <motion.div
