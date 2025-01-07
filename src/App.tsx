@@ -6,6 +6,7 @@ import myPhoto from './img/myphoto.jpg';
 import crimsonShop from './img/crimsonshop.jpg';
 import ChatBot from './components/ChatBot';
 import SecurityScanner from './components/SecurityScanner';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './components/ui/dialog';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -250,26 +251,35 @@ function App() {
               className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
               variants={itemVariants}
             >
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-2">Web Security Scanner</h3>
-                <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                  A powerful web security tool that helps identify vulnerabilities, analyze server configurations, and discover potential security risks in web applications.
-                </p>
-                <div className="flex space-x-4">
-                  <a
-                    href="https://github.com/nanashi0x1/portfolio/blob/main/src/components/SecurityScanner.tsx"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex items-center ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-500'}`}
-                  >
-                    <Github className="w-5 h-5 mr-2" />
-                    View Code
-                  </a>
-                </div>
-              </div>
-              <div className="px-6 pb-6">
-                <SecurityScanner />
-              </div>
+              <Dialog>
+                <DialogTrigger className="w-full text-left">
+                  <div className="p-6">
+                    <div className="h-48 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500">
+                      <Shield className="w-16 h-16 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2 mt-4">Web Security Scanner</h3>
+                    <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                      A powerful web security tool that helps identify vulnerabilities, analyze server configurations, and discover potential security risks in web applications.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Security", "React", "TypeScript"].map((tag, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Web Security Scanner</DialogTitle>
+                  </DialogHeader>
+                  <SecurityScanner />
+                </DialogContent>
+              </Dialog>
             </motion.div>
           </div>
         </motion.section>
