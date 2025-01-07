@@ -44,34 +44,61 @@ const AiImageGenerator = () => {
         });
       }, 300);
 
-      // Call Hugging Face API
-      const response = await fetch(
-        "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_HUGGINGFACE_API_KEY || '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'}`,
-          },
-          body: JSON.stringify({
-            inputs: prompt + (negativePrompt ? ` {negative prompt: ${negativePrompt}}` : ''),
-            parameters: {
-              num_inference_steps: quality,
-              guidance_scale: 7.5,
-              width: aspectRatio === '16:9' ? 832 : aspectRatio === '9:16' ? 512 : 640,
-              height: aspectRatio === '16:9' ? 512 : aspectRatio === '9:16' ? 832 : 640
-            }
-          }),
-        }
-      );
+      // Using Replicate API
+      const response = await fetch('https://api.replicate.com/v1/predictions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${import.meta.env.VITE_REPLICATE_API_KEY || 'r8_0vgE4RtjCwRqOoFHFyADJcOxFtQv5Y9t4Qh1N'}`,
+        },
+        body: JSON.stringify({
+          version: "ac732df83cea7fff18b8472768c88ad041fa750ff7682a21affe81863cbe77e4",
+          input: {
+            prompt: prompt + (negativePrompt ? ` {negative prompt: ${negativePrompt}}` : ''),
+            width: aspectRatio === '16:9' ? 832 : aspectRatio === '9:16' ? 512 : 640,
+            height: aspectRatio === '16:9' ? 512 : aspectRatio === '9:16' ? 832 : 640,
+            num_outputs: 1,
+            guidance_scale: 7.5,
+            num_inference_steps: quality
+          }
+        })
+      });
 
       if (!response.ok) {
-        throw new Error('Failed to generate image');
+        throw new Error('Failed to start image generation');
       }
 
-      const blob = await response.blob();
-      const imageUrl = URL.createObjectURL(blob);
-      setGeneratedImages(prev => [imageUrl, ...prev]);
+      const prediction = await response.json();
+      
+      // Poll for results
+      let result = null;
+      while (!result) {
+        const pollResponse = await fetch(prediction.urls.get, {
+          headers: {
+            'Authorization': `Token ${import.meta.env.VITE_REPLICATE_API_KEY || 'r8_0vgE4RtjCwRqOoFHFyADJcOxFtQv5Y9t4Qh1N'}`,
+          },
+        });
+        
+        if (!pollResponse.ok) {
+          throw new Error('Failed to check generation status');
+        }
+
+        const pollResult = await pollResponse.json();
+        if (pollResult.status === 'succeeded') {
+          result = pollResult;
+          break;
+        } else if (pollResult.status === 'failed') {
+          throw new Error('Image generation failed');
+        }
+
+        // Wait before polling again
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+
+      // Add generated image to the list
+      if (result.output && result.output[0]) {
+        setGeneratedImages(prev => [result.output[0], ...prev]);
+      }
 
       clearInterval(progressInterval);
       setProgress(100);
@@ -80,20 +107,30 @@ const AiImageGenerator = () => {
       alert('Failed to generate image. Please try again.');
     } finally {
       setIsGenerating(false);
+      setProgress(0);
     }
   };
 
-  const handleDownload = (imageUrl: string) => {
-    const link = document.createElement('a');
-    link.href = imageUrl;
-    link.download = `generated-image-${Date.now()}.png`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDownload = async (imageUrl: string) => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `generated-image-${Date.now()}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading image:', error);
+      alert('Failed to download image. Please try again.');
+    }
   };
 
   const handleVariations = async (imageUrl: string) => {
-    setPrompt('Generate variations of this image');
+    setPrompt(`Create a variation of this image: ${imageUrl}`);
     await handleGenerate();
   };
 
