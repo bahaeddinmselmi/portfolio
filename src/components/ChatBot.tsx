@@ -68,29 +68,38 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
   };
 
   return (
-    <>
+    <div className="fixed bottom-0 right-0 z-50">
       {/* Chat Button */}
-      <motion.button
-        className={`fixed bottom-6 right-6 p-3 rounded-full ${
-          darkMode ? 'bg-gray-700 text-white' : 'bg-blue-500 text-white'
-        } shadow-lg hover:shadow-xl transition-shadow`}
-        onClick={() => setIsOpen(true)}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        <MessageSquare size={24} />
-      </motion.button>
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.button
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            className={`fixed bottom-6 right-6 p-4 rounded-full ${
+              darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-blue-500 hover:bg-blue-600'
+            } text-white shadow-lg hover:shadow-xl transition-all duration-300`}
+            onClick={() => setIsOpen(true)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <MessageSquare size={24} />
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className={`fixed bottom-24 right-6 w-80 sm:w-96 ${
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className={`fixed bottom-6 right-6 w-80 sm:w-96 ${
               darkMode ? 'bg-gray-800' : 'bg-white'
-            } rounded-lg shadow-xl overflow-hidden`}
+            } rounded-lg shadow-xl overflow-hidden border ${
+              darkMode ? 'border-gray-700' : 'border-gray-200'
+            }`}
           >
             {/* Header */}
             <div className={`p-4 ${darkMode ? 'bg-gray-700' : 'bg-blue-500'} text-white flex justify-between items-center`}>
@@ -104,7 +113,11 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
             </div>
 
             {/* Messages */}
-            <div className={`h-96 overflow-y-auto p-4 ${darkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
+            <div 
+              className={`h-96 overflow-y-auto p-4 ${
+                darkMode ? 'bg-gray-800 text-white' : 'bg-gray-50 text-gray-900'
+              }`}
+            >
               {messages.map((message, index) => (
                 <motion.div
                   key={index}
@@ -121,9 +134,9 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
                         : darkMode
                         ? 'bg-gray-700 text-white'
                         : 'bg-white text-gray-800'
-                    }`}
+                    } shadow-sm`}
                   >
-                    {message.text}
+                    <p className="whitespace-pre-line">{message.text}</p>
                   </div>
                 </motion.div>
               ))}
@@ -150,8 +163,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className={`p-2 rounded-lg ${
-                    darkMode ? 'bg-blue-600' : 'bg-blue-500'
-                  } text-white`}
+                    darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'
+                  } text-white transition-colors duration-300`}
                 >
                   <Send size={20} />
                 </motion.button>
@@ -160,7 +173,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 };
 
