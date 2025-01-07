@@ -33,7 +33,7 @@ jobs:
       - name: Create env file
         run: |
           touch .env
-          echo "VITE_REPLICATE_API_KEY=${{ secrets.REPLICATE_API_KEY }}" >> .env
+          echo "VITE_HUGGINGFACE_API_KEY=${{ secrets.HUGGINGFACE_API_KEY }}" >> .env
 
       - name: Build
         run: npm run build

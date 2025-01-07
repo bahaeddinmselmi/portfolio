@@ -44,70 +44,38 @@ const AiImageGenerator = () => {
         });
       }, 300);
 
-      // Using Replicate's SDXL model
-      const response = await fetch('https://api.replicate.com/v1/predictions', {
+      // Using HuggingFace's Stable Diffusion XL
+      const response = await fetch('https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Token ${import.meta.env.VITE_REPLICATE_API_KEY}`,
+          'Authorization': `Bearer ${import.meta.env.VITE_HUGGINGFACE_API_KEY}`,
         },
         body: JSON.stringify({
-          version: "39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b",
-          input: {
-            prompt: `${artStyle === 'photorealistic' ? 'photorealistic, highly detailed, 8k uhd, professional photography, ' : 
-                    artStyle === 'anime' ? 'anime style, high quality, detailed anime illustration, ' :
-                    artStyle === 'digital-art' ? 'digital art, highly detailed digital painting, trending on artstation, ' :
-                    ''}${prompt}`,
+          inputs: `${artStyle === 'photorealistic' ? 'photorealistic, highly detailed, 8k uhd, professional photography, ' : 
+                  artStyle === 'anime' ? 'anime style, high quality, detailed anime illustration, ' :
+                  artStyle === 'digital-art' ? 'digital art, highly detailed digital painting, trending on artstation, ' :
+                  ''}${prompt}`,
+          parameters: {
             negative_prompt: negativePrompt || "low quality, blurry, distorted, disfigured, bad anatomy",
             width: aspectRatio === '16:9' ? 1024 : aspectRatio === '9:16' ? 576 : 768,
             height: aspectRatio === '16:9' ? 576 : aspectRatio === '9:16' ? 1024 : 768,
-            num_outputs: 1,
-            scheduler: "K_EULER",
             num_inference_steps: Math.floor(quality * 0.5) + 25,
             guidance_scale: enhanceDetails ? 12.0 : 7.5,
-            refine: enhanceDetails ? "expert_ensemble_refiner" : "no_refiner",
-            high_noise_frac: enhanceDetails ? 0.95 : 0.8,
           }
         })
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to start image generation');
+        throw new Error(errorData.error || 'Failed to generate image');
       }
 
-      const prediction = await response.json();
+      // Get the image data
+      const imageBlob = await response.blob();
+      const imageUrl = URL.createObjectURL(imageBlob);
+      setGeneratedImages(prev => [imageUrl, ...prev]);
       
-      // Poll for results
-      let result = null;
-      while (!result) {
-        const pollResponse = await fetch(prediction.urls.get, {
-          headers: {
-            'Authorization': `Token ${import.meta.env.VITE_REPLICATE_API_KEY}`,
-          },
-        });
-        
-        if (!pollResponse.ok) {
-          throw new Error('Failed to check generation status');
-        }
-
-        const pollResult = await pollResponse.json();
-        if (pollResult.status === 'succeeded') {
-          result = pollResult;
-          break;
-        } else if (pollResult.status === 'failed') {
-          throw new Error('Image generation failed');
-        }
-
-        // Wait before polling again
-        await new Promise(resolve => setTimeout(resolve, 1000));
-      }
-
-      // Add generated image to the list
-      if (result.output && result.output[0]) {
-        setGeneratedImages(prev => [result.output[0], ...prev]);
-      }
-
       clearInterval(progressInterval);
       setProgress(100);
     } catch (error) {
