@@ -296,12 +296,53 @@ function App() {
                     </div>
                   </div>
                 </DialogTrigger>
+                <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] overflow-hidden">
+                  <DialogHeader>
+                    <DialogTitle>AI Image Generator</DialogTitle>
+                    <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                      <X className="h-4 w-4" />
+                      <span className="sr-only">Close</span>
+                    </DialogClose>
+                  </DialogHeader>
+                  <div className="mt-4 h-[calc(90vh-8rem)] overflow-y-auto">
+                    <AiImageGenerator />
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </motion.div>
+
+            <motion.div
+              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} cursor-pointer transform transition-transform duration-200 hover:scale-105`}
+              variants={itemVariants}
+            >
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
+                    <div className="h-48 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg">
+                      <Shield className="w-16 h-16 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2 mt-4">Web Security Scanner</h3>
+                    <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                      A powerful web security tool that helps identify vulnerabilities, analyze server configurations, and discover potential security risks in web applications.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Security", "React", "TypeScript"].map((tag, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </DialogTrigger>
                 <DialogContent className="w-[90vw] max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl">
                   <DialogHeader className="mb-4">
-                    <DialogTitle className="text-2xl font-bold">AI Image Generator</DialogTitle>
+                    <DialogTitle className="text-2xl font-bold">Web Security Scanner</DialogTitle>
                   </DialogHeader>
                   <div className="mt-4">
-                    <AiImageGenerator />
+                    <SecurityScanner />
                   </div>
                   <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
                     <X className="h-4 w-4" />
