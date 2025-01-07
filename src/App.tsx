@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Github, Facebook, Mail, Brain, Code2, Shield, Languages, Moon, Sun } from 'lucide-react';
 import emailjs from '@emailjs/browser';
@@ -32,6 +32,34 @@ function App() {
       transition: {
         duration: 0.5
       }
+    }
+  };
+
+  useEffect(() => {
+    emailjs.init('oIZvTyxrOuXHGa69M');
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!formRef.current) return;
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      await emailjs.sendForm(
+        'service_l6tgm6r',
+        'template_5fa0a2v',
+        formRef.current,
+        'oIZvTyxrOuXHGa69M'
+      );
+      setSubmitStatus('success');
+      formRef.current.reset();
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -324,29 +352,7 @@ function App() {
                 variants={itemVariants}
                 className="bg-gray-50 dark:bg-gray-700 p-8 rounded-xl shadow-lg"
               >
-                <form ref={formRef} className="space-y-4" onSubmit={async (e) => {
-                  e.preventDefault();
-                  if (!formRef.current) return;
-                  
-                  setIsSubmitting(true);
-                  setSubmitStatus('idle');
-                  
-                  try {
-                    await emailjs.sendForm(
-                      'service_l6tgm6r',
-                      'template_5fa0a2v',
-                      formRef.current,
-                      'oIZvTyxrOuXHGa69M'
-                    );
-                    setSubmitStatus('success');
-                    formRef.current.reset();
-                  } catch (error) {
-                    console.error('Email sending failed:', error);
-                    setSubmitStatus('error');
-                  } finally {
-                    setIsSubmitting(false);
-                  }
-                }}>
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
                   <motion.div variants={itemVariants}>
                     <label htmlFor="from_name" className="block text-sm font-medium mb-1">Name</label>
                     <input
