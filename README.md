@@ -21,19 +21,6 @@ Welcome to my portfolio! This project is a showcase of my skills, projects, and 
 
 ---
 
-## 🌟 Highlights
-### [Your Featured Project #1]
-- **Description**: [Brief description of the project.]
-- **Technologies**: [List key technologies used.]
-- **Link**: [Add URL or GitHub link]
-
-### [Your Featured Project #2]
-- **Description**: [Brief description of the project.]
-- **Technologies**: [List key technologies used.]
-- **Link**: [Add URL or GitHub link]
-
----
-
 ## 📂 Folder Structure
 ```plaintext
 portfolio/
