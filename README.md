@@ -10,6 +10,16 @@ Welcome to my portfolio! This project is a showcase of my skills, projects, and 
 - **Professional Showcase**: Highlighting my projects, skills, and achievements.
 - **Interactive Elements**: Engaging user interface and intuitive navigation.
 - **Modern Tech Stack**: Built with the latest web technologies for performance and aesthetics.
+- **Web Security Scanner**: Built-in tool for scanning web applications for security vulnerabilities.
+
+### 🔒 Security Scanner Features
+- Real-time vulnerability scanning
+- Detection of common web vulnerabilities (XSS, SQL Injection, etc.)
+- Server information analysis
+- SSL/TLS security grading
+- URL discovery and mapping
+- Interactive progress tracking
+- Detailed vulnerability reporting
 
 ---
 
@@ -30,6 +40,17 @@ portfolio/
 ├── assets/         # Images and other media
 └── README.md       # Project documentation
 ```
+
+---
+
+## 🔧 Security Scanner Usage
+1. Navigate to the Security Scanner section
+2. Enter the target URL you want to scan
+3. Click "Start Scan" to begin the security analysis
+4. View detailed results across three categories:
+   - Overview: Server information and general stats
+   - Vulnerabilities: Detailed security findings
+   - Discovered URLs: Map of found endpoints
 
 ---
 
