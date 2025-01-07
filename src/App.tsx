@@ -114,7 +114,11 @@ function App() {
             transition={{ delay: 0.6 }}
             className="flex justify-center space-x-4"
           >
-            {[/* ... */].map((social, index) => (
+            {[
+              { href: "https://github.com", icon: <Github className="w-6 h-6" /> },
+              { href: "https://facebook.com", icon: <Facebook className="w-6 h-6" /> },
+              { href: "#contact", icon: <Mail className="w-6 h-6" /> }
+            ].map((social, index) => (
               <motion.a
                 key={index}
                 href={social.href}
@@ -130,7 +134,177 @@ function App() {
       </header>
 
       <main>
-        {/* ... */}
+        <section id="skills" className="py-20 bg-white dark:bg-gray-800">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="container mx-auto px-4"
+          >
+            <motion.h2 
+              variants={itemVariants}
+              className="text-4xl font-bold text-center mb-12"
+            >
+              Skills & Expertise
+            </motion.h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { icon: <Shield className="w-6 h-6" />, title: "Cybersecurity", description: "Bug bounty hunter" },
+                { icon: <Brain className="w-6 h-6" />, title: "AI Development", description: "PyTorch specialist" },
+                { icon: <Code2 className="w-6 h-6" />, title: "Web Development", description: "Full-stack developer" },
+                { icon: <Languages className="w-6 h-6" />, title: "Languages", description: "Multilingual" }
+              ].map((skill, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  whileHover={{
+                    scale: 1.05,
+                    transition: { type: "spring", stiffness: 300 }
+                  }}
+                  className="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl"
+                >
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: index * 0.2 }}
+                    className="text-indigo-600 dark:text-indigo-400 mb-4"
+                  >
+                    {skill.icon}
+                  </motion.div>
+                  <h3 className="text-xl font-semibold mb-2">{skill.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300">{skill.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </section>
+
+        <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="container mx-auto px-4"
+          >
+            <motion.h2 
+              variants={itemVariants}
+              className="text-4xl font-bold text-center mb-12"
+            >
+              Featured Projects
+            </motion.h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <motion.div
+                variants={itemVariants}
+                whileHover={{ scale: 1.03 }}
+                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                  className="h-48 overflow-hidden"
+                >
+                  <img 
+                    src={crimsonShop} 
+                    alt="Crimson Shop" 
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">Crimson Shop</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    E-commerce platform focusing on high-quality and unique products
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["E-commerce", "Marketing", "Business"].map((tag, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: i * 0.1 }}
+                        className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                      >
+                        {tag}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                variants={itemVariants}
+                whileHover={{ scale: 1.03 }}
+                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                  className="h-48 overflow-hidden bg-gradient-to-r from-blue-500 to-purple-500"
+                >
+                  <div className="h-full flex items-center justify-center text-white">
+                    <Shield className="w-16 h-16" />
+                  </div>
+                </motion.div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">Web Security Scanner</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    Advanced security tool for detecting vulnerabilities in web applications
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Security", "Python", "Automation"].map((tag, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: i * 0.1 }}
+                        className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                      >
+                        {tag}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                variants={itemVariants}
+                whileHover={{ scale: 1.03 }}
+                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                  className="h-48 overflow-hidden bg-gradient-to-r from-green-500 to-blue-500"
+                >
+                  <div className="h-full flex items-center justify-center text-white">
+                    <Brain className="w-16 h-16" />
+                  </div>
+                </motion.div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">AI Image Analyzer</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    Deep learning-based image analysis tool for content moderation
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["AI", "PyTorch", "Computer Vision"].map((tag, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: i * 0.1 }}
+                        className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                      >
+                        {tag}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </section>
+
         <section id="contact" className="py-20 bg-white dark:bg-gray-800">
           <motion.div
             variants={containerVariants}
