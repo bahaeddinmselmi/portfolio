@@ -1,59 +1,26 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
+import { Lock } from 'lucide-react';
 
 const SecureDocs = () => {
   return (
-    <Card className="w-full h-full bg-card hover:shadow-lg transition-shadow">
-      <CardHeader>
-        <CardTitle className="text-xl font-bold">SecureDocs</CardTitle>
-        <CardDescription>
+    <div className="space-y-4">
+      <div className="w-full aspect-[2/1] bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+        <Lock className="w-16 h-16 text-white" />
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold">SecureDocs</h2>
+        <p className="text-muted-foreground mt-1">
           A blockchain-powered document verification system for secure and tamper-proof document management.
-        </CardDescription>
-        <div className="flex flex-wrap gap-2 mt-2">
-          <Badge variant="outline">React</Badge>
-          <Badge variant="outline">TypeScript</Badge>
-          <Badge variant="outline">Blockchain</Badge>
-          <Badge variant="outline">Ethereum</Badge>
-          <Badge variant="outline">IPFS</Badge>
-          <Badge variant="outline">Web3</Badge>
+        </p>
+        <div className="flex flex-wrap gap-2 mt-4">
+          <Badge variant="secondary" className="bg-opacity-50">Blockchain</Badge>
+          <Badge variant="secondary" className="bg-opacity-50">React</Badge>
+          <Badge variant="secondary" className="bg-opacity-50">TypeScript</Badge>
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div>
-            <h3 className="font-semibold mb-2">Key Features:</h3>
-            <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-              <li>Document hashing and blockchain storage</li>
-              <li>Secure verification system</li>
-              <li>OAuth authentication</li>
-              <li>Access control and permissions</li>
-              <li>Transparent audit trail</li>
-              <li>Decentralized storage with IPFS</li>
-            </ul>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <a
-              href="https://github.com/yourusername/secure-docs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-blue-500 hover:underline"
-            >
-              View Source
-            </a>
-            <span className="text-muted-foreground">•</span>
-            <a
-              href="https://secure-docs-demo.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-blue-500 hover:underline"
-            >
-              Live Demo
-            </a>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
