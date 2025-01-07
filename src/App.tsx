@@ -273,12 +273,6 @@ function App() {
             <motion.div
               className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} cursor-pointer transform transition-transform duration-200 hover:scale-105`}
               variants={itemVariants}
-              onClick={() => {
-                const dialog = document.querySelector('[data-dialog="ai-generator"]');
-                if (dialog) {
-                  (dialog as any).showModal();
-                }
-              }}
             >
               <Dialog>
                 <DialogTrigger asChild>
@@ -302,7 +296,7 @@ function App() {
                     </div>
                   </div>
                 </DialogTrigger>
-                <DialogContent data-dialog="ai-generator" className="w-[90vw] max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl">
+                <DialogContent className="w-[90vw] max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl">
                   <DialogHeader className="mb-4">
                     <DialogTitle className="text-2xl font-bold">AI Image Generator</DialogTitle>
                   </DialogHeader>
