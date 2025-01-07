@@ -44,7 +44,7 @@ const AiImageGenerator = () => {
         });
       }, 300);
 
-      // Using Replicate API
+      // Using Replicate's SDXL model
       const response = await fetch('https://api.replicate.com/v1/predictions', {
         method: 'POST',
         headers: {
@@ -52,14 +52,21 @@ const AiImageGenerator = () => {
           'Authorization': `Token ${import.meta.env.VITE_REPLICATE_API_KEY}`,
         },
         body: JSON.stringify({
-          version: "ac732df83cea7fff18b8472768c88ad041fa750ff7682a21affe81863cbe77e4",
+          version: "39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b",
           input: {
-            prompt: `${artStyle === 'photorealistic' ? 'photorealistic, highly detailed, 8k uhd, ' : ''}${prompt}${negativePrompt ? ` {negative prompt: ${negativePrompt}}` : ''}`,
-            width: aspectRatio === '16:9' ? 832 : aspectRatio === '9:16' ? 512 : 640,
-            height: aspectRatio === '16:9' ? 512 : aspectRatio === '9:16' ? 832 : 640,
+            prompt: `${artStyle === 'photorealistic' ? 'photorealistic, highly detailed, 8k uhd, professional photography, ' : 
+                    artStyle === 'anime' ? 'anime style, high quality, detailed anime illustration, ' :
+                    artStyle === 'digital-art' ? 'digital art, highly detailed digital painting, trending on artstation, ' :
+                    ''}${prompt}`,
+            negative_prompt: negativePrompt || "low quality, blurry, distorted, disfigured, bad anatomy",
+            width: aspectRatio === '16:9' ? 1024 : aspectRatio === '9:16' ? 576 : 768,
+            height: aspectRatio === '16:9' ? 576 : aspectRatio === '9:16' ? 1024 : 768,
             num_outputs: 1,
-            guidance_scale: enhanceDetails ? 9.0 : 7.5,
-            num_inference_steps: Math.floor(quality * 0.5) + 25
+            scheduler: "K_EULER",
+            num_inference_steps: Math.floor(quality * 0.5) + 25,
+            guidance_scale: enhanceDetails ? 12.0 : 7.5,
+            refine: enhanceDetails ? "expert_ensemble_refiner" : "no_refiner",
+            high_noise_frac: enhanceDetails ? 0.95 : 0.8,
           }
         })
       });
