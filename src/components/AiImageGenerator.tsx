@@ -48,7 +48,6 @@ const AiImageGenerator = () => {
       const response = await fetch('https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${import.meta.env.VITE_HUGGINGFACE_API_KEY}`,
         },
         body: JSON.stringify({
@@ -56,21 +55,12 @@ const AiImageGenerator = () => {
                   artStyle === 'anime' ? 'anime style, high quality, detailed anime illustration, ' :
                   artStyle === 'digital-art' ? 'digital art, highly detailed digital painting, trending on artstation, ' :
                   ''}${prompt}`,
-          wait_for_model: true,
-          use_cache: false,
-          parameters: {
-            negative_prompt: negativePrompt || "low quality, blurry, distorted, disfigured, bad anatomy",
-            width: aspectRatio === '16:9' ? 1024 : aspectRatio === '9:16' ? 576 : 768,
-            height: aspectRatio === '16:9' ? 576 : aspectRatio === '9:16' ? 1024 : 768,
-            num_inference_steps: Math.floor(quality * 0.5) + 25,
-            guidance_scale: enhanceDetails ? 12.0 : 7.5,
-            return_full_resolution: true
-          }
         })
       });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Failed to generate image' }));
+        console.error('API Error:', errorData);
         throw new Error(errorData.error || 'Failed to generate image');
       }
 
