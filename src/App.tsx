@@ -232,27 +232,39 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <motion.div
               variants={itemVariants}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden"
+              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} cursor-pointer transform transition-transform duration-200 hover:scale-105`}
             >
-              <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
-                <div className="h-48 flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 rounded-lg">
-                  <Lock className="w-16 h-16 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-2 mt-4">SecureDocs</h3>
-                <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                  A blockchain-powered document verification system for secure and tamper-proof document management.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {["Blockchain", "React", "TypeScript"].map((tag, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
+                    <div className="h-48 flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 rounded-lg">
+                      <Lock className="w-16 h-16 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2 mt-4">SecureDocs</h3>
+                    <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                      A blockchain-powered document verification system for secure and tamper-proof document management.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Blockchain", "React", "TypeScript"].map((tag, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] overflow-hidden">
+                  <DialogHeader>
+                    <DialogTitle>SecureDocs</DialogTitle>
+                  </DialogHeader>
+                  <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
+                    <SecureDocs />
+                  </div>
+                </DialogContent>
+              </Dialog>
             </motion.div>
 
             <motion.div
@@ -361,6 +373,43 @@ function App() {
                   </DialogHeader>
                   <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
                     <IpTracker />
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </motion.div>
+
+            <motion.div
+              variants={itemVariants}
+              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} cursor-pointer transform transition-transform duration-200 hover:scale-105`}
+            >
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
+                    <div className="h-48 flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 rounded-lg">
+                      <Lock className="w-16 h-16 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2 mt-4">SecureDocs</h3>
+                    <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                      A blockchain-powered document verification system for secure and tamper-proof document management.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Blockchain", "React", "TypeScript"].map((tag, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] overflow-hidden">
+                  <DialogHeader>
+                    <DialogTitle>SecureDocs</DialogTitle>
+                  </DialogHeader>
+                  <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
+                    <SecureDocs />
                   </div>
                 </DialogContent>
               </Dialog>
