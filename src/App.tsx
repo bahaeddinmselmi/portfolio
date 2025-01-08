@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { Github, Facebook, Mail, Brain, Code2, Shield, Languages, Moon, Sun, X, Globe2, Lock } from 'lucide-react';
+import { Github, Facebook, Mail, Brain, Code2, Shield, Languages, Moon, Sun, X, Globe2, Lock, ShoppingCart } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import myPhoto from './img/myphoto.jpg';
 import crimsonShop from './img/crimsonshop.jpg';
@@ -237,18 +237,18 @@ function App() {
               <Dialog>
                 <DialogTrigger asChild>
                   <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
-                    <div className="h-48 flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 rounded-lg">
-                      <Lock className="w-16 h-16 text-white" />
+                    <div className="h-48 flex items-center justify-center bg-gradient-to-br from-red-500 via-pink-500 to-rose-500 rounded-lg">
+                      <ShoppingCart className="w-16 h-16 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold mb-2 mt-4">SecureDocs</h3>
+                    <h3 className="text-2xl font-bold mb-2 mt-4">Crimson Shop</h3>
                     <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                      A blockchain-powered document verification system for secure and tamper-proof document management.
+                      A modern e-commerce platform for gaming enthusiasts, featuring a sleek design and seamless shopping experience.
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {["Blockchain", "React", "TypeScript"].map((tag, i) => (
+                      {["E-commerce", "React", "Node.js"].map((tag, i) => (
                         <span
                           key={i}
-                          className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
+                          className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-full text-sm"
                         >
                           {tag}
                         </span>
@@ -258,10 +258,10 @@ function App() {
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] overflow-hidden">
                   <DialogHeader>
-                    <DialogTitle>SecureDocs</DialogTitle>
+                    <DialogTitle>Crimson Shop</DialogTitle>
                   </DialogHeader>
                   <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
-                    <SecureDocs />
+                    <CrimsonShop />
                   </div>
                 </DialogContent>
               </Dialog>
@@ -311,15 +311,15 @@ function App() {
               <Dialog>
                 <DialogTrigger asChild>
                   <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
-                    <div className="h-48 flex items-center justify-center bg-gradient-to-r from-red-500 to-rose-500 rounded-lg">
-                      <img src={crimsonShop} alt="Crimson Shop Logo" className="h-32 w-32 object-contain" />
+                    <div className="h-48 flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 rounded-lg">
+                      <Lock className="w-16 h-16 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold mb-2 mt-4">Crimson Shop</h3>
+                    <h3 className="text-2xl font-bold mb-2 mt-4">SecureDocs</h3>
                     <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                      A modern e-commerce platform for gaming enthusiasts, featuring a sleek design and seamless shopping experience.
+                      A blockchain-powered document verification system for secure and tamper-proof document management.
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {["E-commerce", "React", "Node.js"].map((tag, i) => (
+                      {["Blockchain", "React", "TypeScript"].map((tag, i) => (
                         <span
                           key={i}
                           className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
@@ -332,10 +332,10 @@ function App() {
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] overflow-hidden">
                   <DialogHeader>
-                    <DialogTitle>Crimson Shop</DialogTitle>
+                    <DialogTitle>SecureDocs</DialogTitle>
                   </DialogHeader>
                   <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
-                    <CrimsonShop />
+                    <SecureDocs />
                   </div>
                 </DialogContent>
               </Dialog>
@@ -373,43 +373,6 @@ function App() {
                   </DialogHeader>
                   <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
                     <IpTracker />
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </motion.div>
-
-            <motion.div
-              variants={itemVariants}
-              className={`rounded-lg overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} cursor-pointer transform transition-transform duration-200 hover:scale-105`}
-            >
-              <Dialog>
-                <DialogTrigger asChild>
-                  <div className="p-6 w-full text-left hover:opacity-90 transition-opacity" role="button" tabIndex={0}>
-                    <div className="h-48 flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 rounded-lg">
-                      <Lock className="w-16 h-16 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold mb-2 mt-4">SecureDocs</h3>
-                    <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                      A blockchain-powered document verification system for secure and tamper-proof document management.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {["Blockchain", "React", "TypeScript"].map((tag, i) => (
-                        <span
-                          key={i}
-                          className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[90vw] lg:max-w-[75vw] max-h-[90vh] overflow-hidden">
-                  <DialogHeader>
-                    <DialogTitle>SecureDocs</DialogTitle>
-                  </DialogHeader>
-                  <div className="overflow-y-auto pr-6 -mr-6 pl-0 mt-4 h-[calc(90vh-8rem)]">
-                    <SecureDocs />
                   </div>
                 </DialogContent>
               </Dialog>
