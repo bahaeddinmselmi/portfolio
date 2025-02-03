@@ -11,21 +11,15 @@ interface Message {
 
 const personalInfo = {
   name: "Baha Eddin Mselmi",
-  email: "bahaeddine.mselmi@gmail.com",
-  phone: "+216 56 708 649",
+  email: "bahaeddinmselmi1@gmail.com",
+  phone: "+216 56454845",
   location: "Tunisia",
   education: {
     university: "ISTIC University",
-    highSchool: "Lycée Pilote Ariana",
-    status: "Final Year Student"
+    highSchool: "Mouhamed Brahmi Mourouj 6",
+    status: "First Year Student"
   },
   personality: "ENTP",
-  certifications: [
-    "CompTIA Security+",
-    "Cisco CCNA",
-    "AWS Cloud Practitioner",
-    "React Developer Certification"
-  ],
   languages: [
     { name: "Arabic", level: "Native" },
     { name: "English", level: "Professional" },
