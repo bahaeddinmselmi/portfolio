@@ -17,7 +17,6 @@ const personalInfo = {
   education: {
     university: "ISTIC University",
     highSchool: "Mouhamed Brahmi Mourouj 6",
-    status: "First Year Student"
   },
   personality: "ENTP",
   languages: [
