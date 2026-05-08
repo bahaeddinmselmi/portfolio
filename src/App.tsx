@@ -361,13 +361,13 @@ export default function App() {
               className="space-y-4"
             >
               <a
-                href="mailto:baha@zaynah.app"
+                href="mailto:bahaeddinmselmi484@gmail.com"
                 className={`flex items-center gap-3 p-4 rounded-xl border ${cardBg} hover:border-violet-500/50 transition-colors group`}
               >
                 <Mail className="w-5 h-5 text-violet-400" />
                 <div>
                   <p className="text-sm font-medium">Email</p>
-                  <p className={`text-sm ${muted}`}>baha@zaynah.app</p>
+                  <p className={`text-sm ${muted}`}>bahaeddinmselmi484@gmail.com</p>
                 </div>
               </a>
               <a
