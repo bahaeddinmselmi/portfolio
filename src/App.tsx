@@ -5,8 +5,6 @@ import {
   Globe, Code2, Moon, Sun, ArrowUpRight, MapPin
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import { SplineScene } from '@/components/ui/splite';
-import { Spotlight } from '@/components/ui/spotlight';
 
 
 const PROJECTS = [
@@ -253,16 +251,16 @@ export default function App() {
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="relative h-[420px] rounded-2xl overflow-hidden bg-black/40"
+            className="flex justify-center"
           >
-            <Spotlight
-              className="-top-40 left-0 md:left-20 md:-top-10"
-              fill="white"
-            />
-            <SplineScene
-              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-              className="w-full h-full"
-            />
+            <div className="relative">
+              <div className="absolute inset-0 rounded-2xl bg-violet-600/20 blur-2xl scale-110" />
+              <img
+                src="https://avatars.githubusercontent.com/u/74422456?v=4"
+                alt="Baha Eddin Mselmi"
+                className="relative w-72 h-72 rounded-2xl object-cover ring-1 ring-violet-500/30"
+              />
+            </div>
           </motion.div>
         </div>
       </header>
