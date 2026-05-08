@@ -170,25 +170,56 @@ export default function App() {
       <header id="home" className="min-h-screen flex items-center pt-20">
         <div className="max-w-5xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-16 items-center">
           <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }}>
-            <motion.div variants={fade} className={`inline-flex items-center gap-2 text-sm ${muted} mb-6`}>
-              <MapPin className="w-3.5 h-3.5" />
-              Tunisia — building for MENA &amp; EMEA
+            {/* Geo */}
+            <motion.div variants={fade} className="flex flex-wrap items-center gap-2 mb-6">
+              <span className={`inline-flex items-center gap-1.5 text-sm ${muted}`}>
+                <MapPin className="w-3.5 h-3.5" />
+                Tunisia
+              </span>
+              <span className={`w-px h-3 ${dark ? 'bg-zinc-700' : 'bg-gray-300'}`} />
+              {['MENA', 'EMEA', 'Arabic NLP'].map((m) => (
+                <span key={m} className={`text-xs px-2 py-0.5 rounded-full font-medium ${dark ? 'bg-zinc-800 text-zinc-400 ring-1 ring-zinc-700' : 'bg-gray-100 text-gray-600 ring-1 ring-gray-200'}`}>
+                  {m}
+                </span>
+              ))}
             </motion.div>
-            <motion.h1 variants={fade} className="text-5xl font-bold leading-tight tracking-tight mb-4">
+
+            <motion.h1 variants={fade} className="text-5xl font-bold leading-tight tracking-tight mb-2">
               Baha Eddin<br />
               <span className="text-violet-400">Mselmi</span>
             </motion.h1>
-            <motion.p variants={fade} className={`text-lg font-medium mb-2`}>
-              Co-Founder &amp; CEO @{' '}
-              <a href="https://zaynah.app" target="_blank" rel="noreferrer" className="text-violet-400 hover:underline">Zaynah AI</a>
-              {' '}·{' '}
-              Founder @{' '}
-              <a href="https://recouvr.dev" target="_blank" rel="noreferrer" className="text-violet-400 hover:underline">Recouvr AI</a>
+            <motion.p variants={fade} className={`text-sm font-semibold uppercase tracking-widest ${muted} mb-5`}>
+              Serial Founder · AI Infrastructure
             </motion.p>
+
+            {/* Ventures strip */}
+            <motion.div variants={fade} className="flex flex-wrap gap-3 mb-6">
+              <a
+                href="https://zaynah.app"
+                target="_blank"
+                rel="noreferrer"
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors ${dark ? 'border-emerald-500/25 bg-emerald-500/5 hover:border-emerald-500/50' : 'border-emerald-500/30 bg-emerald-50 hover:border-emerald-500/60'}`}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
+                <span className="text-sm font-semibold">Zaynah AI</span>
+                <span className={`text-xs ${muted}`}>Co-Founder &amp; CEO</span>
+              </a>
+              <a
+                href="https://recouvr.dev"
+                target="_blank"
+                rel="noreferrer"
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors ${dark ? 'border-amber-500/25 bg-amber-500/5 hover:border-amber-500/50' : 'border-amber-500/30 bg-amber-50 hover:border-amber-500/60'}`}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0" />
+                <span className="text-sm font-semibold">Recouvr AI</span>
+                <span className={`text-xs ${muted}`}>Founder</span>
+              </a>
+            </motion.div>
+
             <motion.p variants={fade} className={`${muted} mb-8 leading-relaxed`}>
-              I build production AI systems at the intersection of Arabic NLP, WhatsApp
-              automation, and GDPR infrastructure — for markets where English-first tooling
-              breaks down.
+              Building production AI at the intersection of Arabic NLP, WhatsApp
+              automation, and GDPR-first infrastructure — for markets where
+              English-only tooling fails.
             </motion.p>
             <motion.div variants={fade} className="flex flex-wrap gap-3">
               <a
