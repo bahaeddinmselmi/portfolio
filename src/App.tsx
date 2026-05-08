@@ -5,7 +5,7 @@ import {
   Globe, Code2, Moon, Sun, ArrowUpRight, MapPin
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import myPhoto from './img/myphoto.jpg';
+
 
 const PROJECTS = [
   {
@@ -225,7 +225,7 @@ export default function App() {
             <div className="relative">
               <div className="absolute inset-0 rounded-2xl bg-violet-600/20 blur-2xl scale-110" />
               <img
-                src={myPhoto}
+                src="https://avatars.githubusercontent.com/u/74422456?v=4"
                 alt="Baha Eddin Mselmi"
                 className="relative w-72 h-72 rounded-2xl object-cover ring-1 ring-violet-500/30"
               />
